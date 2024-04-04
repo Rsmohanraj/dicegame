@@ -35,7 +35,13 @@ playeronescoreSpan.innerText =data.playeronescore;
 playertwoscoreSpan.innerText =data.playertwoscore;
 }
 const rollthedice = () => {
-    const randomnum=Math.ceil(Math.random() * 6);
+  const IntervalId=setInterval(()=>{
+        const randomnum=Math.ceil(Math.random() * 6);
+    Diceimg.src =`./images/${randomnum}.png`;
+    },150)
+    setTimeout(() =>{
+        clearInterval(IntervalId);
+        const randomnum=Math.ceil(Math.random() * 6);
     Diceimg.src =`./images/${randomnum}.png`;
     if(data.currentplayer == 1){
         data.playeronescore +=randomnum;
@@ -44,29 +50,36 @@ const rollthedice = () => {
         data.playertwoscore +=randomnum;
         playertwoscoreSpan.innerText =data.playertwoscore;
     }
+    },1000)
+    
 }
 
 playeronebutton.addEventListener("click",() => {
     rollthedice()
+     playeronebutton.setAttribute("disabled","disabled")
+    setTimeout(() =>{
     if(data.playeronescore >= 30){
          var a = document.querySelector(".winner-display").innerText="player 1 to win congratulations!!!"
-        
-        playeronebutton.setAttribute("disabled","disabled")
+
+       
         resetbutton.removeAttribute("disabled")
     }else{
         setcurrentplayer(2)
     }
+},1000)
 })
-
 playertwobutton.addEventListener("click",() => {
     rollthedice()
+    playertwobutton.setAttribute("disabled","disabled")
+    setTimeout(() =>{
     if(data.playertwoscore >= 30){
         var a = document.querySelector(".winner-display").innerText="player 2 to win congratulations!!!"
-        playertwobutton.setAttribute("disabled","disabled")
+        
     resetbutton.removeAttribute("disabled")
     }else{
         setcurrentplayer(1)
     }
+},1000)
 })
 
 
